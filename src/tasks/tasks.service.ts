@@ -34,7 +34,7 @@ export class TasksService {
 
     this.tasks.push(taskToCreate);
 
-    return [this.tasks];
+    return [...this.tasks];
   }
 
   //Get All Tasks
@@ -44,12 +44,30 @@ export class TasksService {
 
   //get one task
   getOneTask(id: string): any {
-    const task = this.tasks.find((t) => t.id === id);
+    const task = this.findTask(id);
 
     if (!task) {
       return new NotFoundException();
     }
 
     return { ...task };
+  }
+  //delete one task
+  deleteTask(id: string): string {
+    const task = this.findTask(id);
+
+    if (!task) {
+      throw new NotFoundException();
+    }
+
+    const index = this.tasks.indexOf(task);
+    this.tasks.splice(index, 1);
+
+    return id;
+  }
+
+  private findTask(id: string) {
+    const task = this.tasks.find((t) => t.id === id);
+    return task;
   }
 }
