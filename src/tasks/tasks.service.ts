@@ -32,7 +32,7 @@ export class TasksService {
       description: task.description,
     };
 
-    this.tasks.push(tasksToCreate);
+    this.tasks.push(taskToCreate);
 
     return [this.tasks];
   }
