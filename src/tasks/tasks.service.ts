@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 @Injectable()
 export class TasksService {
@@ -16,12 +20,29 @@ export class TasksService {
     { id: 'zxc3', title: 'Boot Computer', description: 'Still needs linux' },
   ];
 
+  //create tasks
+  createTask(task: any): any[] {
+    if (task.title === '' || task.description === '') {
+      throw new BadRequestException();
+    }
+
+    const taskToCreate: any = {
+      id: new Date().getTime().toString(),
+      title: task.title,
+      description: task.description,
+    };
+
+    this.tasks.push(tasksToCreate);
+
+    return [this.tasks];
+  }
+
   //Get All Tasks
   getTasks(): any[] {
     return [...this.tasks];
   }
 
-  //getonetask
+  //get one task
   getOneTask(id: string): any {
     const task = this.tasks.find((t) => t.id === id);
 
