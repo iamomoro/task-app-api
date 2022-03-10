@@ -16,31 +16,36 @@ export class TasksController {
 
   //create tasks
   @Post()
-  createTask(@Body() body: Task): Task[] {
-    return this.tasksService.createTask(body);
+  async createTask(@Body() body: Task): Promise<Task[]> {
+    const tasks = await this.tasksService.createTask(body);
+    return tasks;
   }
 
   //get tasks
   @Get()
-  getTasks(): Task[] {
-    return this.tasksService.getTasks();
+  async getTasks(): Promise<Task[]> {
+    const tasks = await this.tasksService.getTasks();
+    return tasks;
   }
 
   //get one task
   @Get(':id')
-  getOneTask(@Param('id') id: string): Task {
-    return this.tasksService.getOneTask(id);
+  async getOneTask(@Param('id') id: string): Promise<Task> {
+    const tasks = await this.tasksService.getOneTask(id);
+    return tasks;
   }
 
   //update task
   @Patch(':id')
-  updateTask(@Param('id') id: string, @Body() body: Task): Task {
-    return this.tasksService.updateTask(id, body);
+  async updateTask(@Param('id') id: string, @Body() body: Task): Promise<Task> {
+    const tasks = await this.tasksService.updateTask(id, body);
+    return tasks;
   }
 
   //Delete Task
   @Delete(':id')
-  deleteTask(@Param('id') id: string): string {
-    return this.tasksService.deleteTask(id);
+  async deleteTask(@Param('id') id: string): Promise<string> {
+    const tasks = await this.tasksService.deleteTask(id);
+    return tasks;
   }
 }
